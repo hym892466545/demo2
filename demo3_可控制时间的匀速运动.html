@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#box{width: 100px;height: 100px;position: absolute;top:100px; left:100px; background: red;}
+		.left, .right {width: 0;height: 500px;border:1px solid black; position: absolute;}
+		.left {left:100px;}
+		.right {left:1000px;}
+	</style>
+</head>
+<body>
+	<button id="start">开始</button>
+	<button id="start2">垂直</button>
+	<button id="start3">宽度</button>
+	<button id="start4">高度</button>
+	<div class="left"></div>
+	<div id="box"></div>
+	<div class="right"></div>
+
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+		// 实际位置 = 初始位置 + 运动经过时间 * 总可运动区间 / 总时间
+		$("#start").onclick = function(){
+			var _start = parseFloat(css($("#box"), "left")), // 初始位置
+				_end = 1000, // 结束位置
+				_speed = 5000, // 总时间
+				_origin = _end - _start; // 可运动区间
+			// 在启动计时器前，先记录时间
+			var _startTime = +new Date();
+			// 启动计时器
+			var _timer = setInterval(function(){
+				// 获取当前次计时函数执行时的时间
+				var _currTime = +new Date();
+				// 计算已经运动经过时间
+				var _elapsed = _currTime - _startTime;
+				// 在已经运动经过的时间与设置的运动总时间之间取较小的时间
+				_elapsed = Math.min(_elapsed, _speed);
+				// 根据公式计算实际运动位置
+				var _result = _start + _elapsed * _origin / _speed;
+				// 设置元素运动位置
+				$("#box").style.left = _result + "px";
+				// 到达结束位置，停止计时器
+				if (_result >= _end)
+					clearInterval(_timer);
+			}, 1000/60);
+		}
+
+		$("#start2").onclick = function(){
+			var _start = parseFloat(css($("#box"), "top")), // 初始位置
+				_end = 400, // 结束位置
+				_speed = 3000, // 总时间
+				_origin = _end - _start; // 可运动区间
+			// 在启动计时器前，先记录时间
+			var _startTime = +new Date();
+			// 启动计时器
+			var _timer = setInterval(function(){
+				// 获取当前次计时函数执行时的时间
+				var _currTime = +new Date();
+				// 计算已经运动经过时间
+				var _elapsed = _currTime - _startTime;
+				// 在已经运动经过的时间与设置的运动总时间之间取较小的时间
+				_elapsed = Math.min(_elapsed, _speed);
+				// 根据公式计算实际运动位置
+				var _result = _start + _elapsed * _origin / _speed;
+				// 设置元素运动位置
+				$("#box").style.top = _result + "px";
+				// 到达结束位置，停止计时器
+				if (_result >= _end)
+					clearInterval(_timer);
+			}, 1000/60);
+		}
+
+		$("#start3").onclick = function(){
+			var _start = parseFloat(css($("#box"), "width")), // 初始位置
+				_end = 400, // 结束位置
+				_speed = 3000, // 总时间
+				_origin = _end - _start; // 可运动区间
+			// 在启动计时器前，先记录时间
+			var _startTime = +new Date();
+			// 启动计时器
+			var _timer = setInterval(function(){
+				// 获取当前次计时函数执行时的时间
+				var _currTime = +new Date();
+				// 计算已经运动经过时间
+				var _elapsed = _currTime - _startTime;
+				// 在已经运动经过的时间与设置的运动总时间之间取较小的时间
+				_elapsed = Math.min(_elapsed, _speed);
+				// 根据公式计算实际运动位置
+				var _result = _start + _elapsed * _origin / _speed;
+				// 设置元素运动位置
+				$("#box").style.width = _result + "px";
+				// 到达结束位置，停止计时器
+				if (_result >= _end)
+					clearInterval(_timer);
+			}, 1000/60);
+		}
+	</script>
+</body>
+</html>

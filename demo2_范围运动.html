@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+
+		#box {width: 600px;height: 400px;position: relative;margin:50px auto; border:1px solid;}
+		#inner {width: 100px;height: 100px; position: absolute; top:50px; left:30px; background: red;}
+	</style>
+</head>
+<body>
+	<button id="start">开始</button>
+	<div id="box">
+		<div id="inner"></div>
+	</div>
+
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+		$("#start").onclick = function(){
+			// 获取大小盒子宽度、高度
+			var boxWidth = $("#box").clientWidth,
+				boxHeight = $("#box").clientHeight,
+				innWidth = $("#inner").offsetWidth,
+				innHeight = $("#inner").offsetHeight;
+			var speedX = 2;
+			var speedY = 5;
+
+			setInterval(function(){
+				// 获取 div#inner 元素当前次运动前的位置
+				var _left = parseInt(css($("#inner"), "left"));
+				var _top = parseInt(css($("#inner"), "top"));
+				// 计算当前次运动后的位置
+				_left += speedX;
+				_top += speedY;
+				// 设置 div#inner 元素运动位置
+				$("#inner").style.left = _left + "px";
+				$("#inner").style.top = _top + "px";
+
+				if (_left >= boxWidth - innWidth || _left <= 0)
+					speedX *= -1;
+				if (_top >= boxHeight - innHeight || _top <= 0)
+					speedY *= -1;
+
+				/*if (_left >= boxWidth - innWidth) {
+					speedX = -2;
+				} else if (_left <= 0) {
+					speedX = 2;
+				}
+
+				if (_top >= boxHeight - innHeight)
+					speedY = -5;
+				else if (_top <= 0)
+					speedY = 5;*/
+			}, 1000/60);
+		}
+	</script>
+</body>
+</html>
